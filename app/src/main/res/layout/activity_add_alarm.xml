@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".AddAlarmActivity">
+
+    <LinearLayout
+        android:id="@+id/add_alarm_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/add_alarm_header"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_centerInParent="true"
+            android:background="@color/colorHeader"
+            android:gravity="center"
+            android:text="Add a crazy alarm"
+            android:textStyle="bold"
+            android:transitionName="header" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightGray"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_header_container" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightGray"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/add_alarm_spinner_container"
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_header_container">
+
+        <com.aigestudio.wheelpicker.WheelPicker
+            android:id="@+id/add_places_wheel_hour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:foregroundGravity="center"
+            app:wheel_item_text_color="#bdc3c7"
+            app:wheel_item_text_size="20sp"
+            app:wheel_selected_item_text_color="@color/colorAccent"
+            app:wheel_visible_item_count="3" />
+
+        <com.aigestudio.wheelpicker.WheelPicker
+            android:id="@+id/add_places_wheel_minutes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:foregroundGravity="center"
+            app:wheel_item_text_color="#bdc3c7"
+            app:wheel_item_text_size="20sp"
+            app:wheel_selected_item_text_color="@color/colorAccent"
+            app:wheel_visible_item_count="3" />
+
+        <com.aigestudio.wheelpicker.WheelPicker
+            android:id="@+id/add_places_wheel_ampm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:foregroundGravity="center"
+            app:wheel_item_text_color="#bdc3c7"
+            app:wheel_item_text_size="20sp"
+            app:wheel_selected_item_text_color="@color/colorAccent"
+            app:wheel_visible_item_count="3" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/add_alarm_spinner_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightGray"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_spinner_container" />
+
+    <RelativeLayout
+        android:id="@+id/add_alarm_repeat_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_spinner_divider">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="16dp"
+            android:text="Repeat"
+            android:textColor="#000" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:layout_marginRight="16dp"
+            android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+            android:drawablePadding="3dp"
+            android:text="Only Ring Once"
+            android:textColor="@color/midDarkGray" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightGray"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_repeat_mode" />
+
+    <RelativeLayout
+        android:id="@+id/add_alarm_ringtone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_repeat_mode">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="16dp"
+            android:text="Ringtone"
+            android:textColor="#000" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:layout_marginRight="16dp"
+            android:drawableRight="@drawable/ic_navigate_next_black_24dp"
+            android:drawablePadding="3dp"
+            android:text="Default"
+            android:textColor="@color/midDarkGray" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLightGray"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_ringtone" />
+
+    <RelativeLayout
+        android:id="@+id/add_alarm_vibration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/add_alarm_ringtone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="16dp"
+            android:text="Vibration"
+            android:textColor="#000" />
+
+        <Switch
+            android:id="@+id/add_alarm_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="16dp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="24dp"
+        android:background="@drawable/glass_circle"
+        android:src="@drawable/ic_done_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="24dp"
+        android:background="@drawable/glass_circle"
+        android:src="@drawable/ic_close_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

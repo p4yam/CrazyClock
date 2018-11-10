@@ -29,7 +29,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="@color/colorLightGray"
         app:layout_constraintTop_toBottomOf="@id/add_alarm_header_container" />
 
@@ -146,6 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="16dp"
+            android:id="@+id/add_alarm_ringtone_name"
             android:layout_marginRight="16dp"
             android:drawableRight="@drawable/ic_navigate_next_black_24dp"
             android:drawablePadding="3dp"

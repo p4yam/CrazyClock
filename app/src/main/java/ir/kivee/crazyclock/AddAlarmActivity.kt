@@ -1,6 +1,9 @@
 package ir.kivee.crazyclock
 
 import android.app.Activity
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
@@ -28,6 +31,10 @@ class AddAlarmActivity : AppCompatActivity() {
             intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currentUri)
             this.startActivityForResult(intent, RINGTONE_REQUEST_CODE)
         }
+
+        add_alarm_save_alarm.setOnClickListener {
+            getWheelTime()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -50,24 +57,25 @@ class AddAlarmActivity : AppCompatActivity() {
         val minutes = ArrayList<String>()
         for (i in 1..12)
             hours.add(i)
-        add_places_wheel_hour.data = hours
+        add_alarm_wheel_hour.data = hours
+
         for (i in 0..59)
             if (i < 10)
                 minutes.add("0" + i.toString())
             else
                 minutes.add(i.toString())
-        add_places_wheel_minutes.data = minutes
+        add_alarm_wheel_minutes.data = minutes
         val type = ArrayList<String>()
         type.add("AM")
         type.add("PM")
-        add_places_wheel_ampm.data = type
+        add_alarm_wheel_ampm.data = type
     }
 
     private fun getNow() {
         val currentTime = Calendar.getInstance()
-        add_places_wheel_hour.selectedItemPosition = currentTime.get(Calendar.HOUR) - 1
-        add_places_wheel_ampm.selectedItemPosition = currentTime.get(Calendar.AM_PM)
-        add_places_wheel_minutes.selectedItemPosition = currentTime.get(Calendar.MINUTE) - 1
+        add_alarm_wheel_hour.selectedItemPosition = currentTime.get(Calendar.HOUR) - 1
+        add_alarm_wheel_ampm.selectedItemPosition = currentTime.get(Calendar.AM_PM)
+        add_alarm_wheel_minutes.selectedItemPosition = currentTime.get(Calendar.MINUTE) - 1
 
     }
 
@@ -76,6 +84,49 @@ class AddAlarmActivity : AppCompatActivity() {
             add_alarm_switch.isChecked = !add_alarm_switch.isChecked
         }
 
+    }
+
+    private fun getWheelTime() {
+        var hour = add_alarm_wheel_hour.currentItemPosition + 1
+        val minutes = add_alarm_wheel_minutes.currentItemPosition
+        val ampm = add_alarm_wheel_hour.currentItemPosition
+        if (ampm==0 && hour==12)
+            hour=0
+        if (ampm==1 && hour!=12)
+            hour+=12
+
+        Log.d("p4yam", hour.toString() + " " + minutes.toString() + " " + amPmChanger(ampm))
+        createAlarm(hour,minutes)
+    }
+
+    private fun createAlarm(hour:Int,minutes:Int) {
+
+        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        val broadcastIntent = Intent(this, AlarmBroadcastReceiver::class.java)
+        val id = System.currentTimeMillis().toInt()
+        val calendar = Calendar.getInstance()
+        val day = calendar.get(Calendar.DAY_OF_WEEK)
+        calendar.set(Calendar.DAY_OF_WEEK,day)
+        calendar.set(Calendar.HOUR_OF_DAY,hour)
+        calendar.set(Calendar.MINUTE,minutes)
+        calendar.set(Calendar.SECOND, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        val startTime = calendar.timeInMillis
+        val pIntent = PendingIntent.getBroadcast(this, id, broadcastIntent, 0)
+        alarmManager.set(
+                AlarmManager.RTC_WAKEUP,
+                startTime,
+                pIntent
+        )
+        finish()
+    }
+
+    private fun amPmChanger(input:Int): String {
+        return if (input==0)
+            "am"
+        else
+            "pm"
     }
 
 }

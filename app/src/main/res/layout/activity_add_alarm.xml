@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/add_alarm_header_container">
 
         <com.aigestudio.wheelpicker.WheelPicker
-            android:id="@+id/add_places_wheel_hour"
+            android:id="@+id/add_alarm_wheel_hour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -59,7 +59,7 @@
             app:wheel_visible_item_count="3" />
 
         <com.aigestudio.wheelpicker.WheelPicker
-            android:id="@+id/add_places_wheel_minutes"
+            android:id="@+id/add_alarm_wheel_minutes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -70,7 +70,7 @@
             app:wheel_visible_item_count="3" />
 
         <com.aigestudio.wheelpicker.WheelPicker
-            android:id="@+id/add_places_wheel_ampm"
+            android:id="@+id/add_alarm_wheel_ampm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -190,6 +190,8 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_margin="24dp"
+        android:id="@+id/add_alarm_save_alarm"
+        android:tint="@color/colorPrimaryDark"
         android:background="@drawable/glass_circle"
         android:src="@drawable/ic_done_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"

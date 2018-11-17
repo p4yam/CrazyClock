@@ -8,4 +8,6 @@
     <color name="colorHeader">#fefefe</color>
     <color name="midDarkGray">#b2bec3</color>
     <color name="materialBlack">#2d3436</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

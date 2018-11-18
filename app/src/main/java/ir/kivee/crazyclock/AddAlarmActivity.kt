@@ -35,6 +35,11 @@ class AddAlarmActivity : AppCompatActivity() {
         add_alarm_save_alarm.setOnClickListener {
             getWheelTime()
         }
+
+        add_alarm_repeat_mode.setOnClickListener {
+            val repeatFragment = RepeatFragment()
+            repeatFragment.show(supportFragmentManager, "repeat")
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -89,44 +94,32 @@ class AddAlarmActivity : AppCompatActivity() {
     private fun getWheelTime() {
         var hour = add_alarm_wheel_hour.currentItemPosition + 1
         val minutes = add_alarm_wheel_minutes.currentItemPosition
-        val ampm = add_alarm_wheel_hour.currentItemPosition
-        if (ampm==0 && hour==12)
-            hour=0
-        if (ampm==1 && hour!=12)
-            hour+=12
+        val ampm = add_alarm_wheel_ampm.currentItemPosition
+        if (ampm == 0 && hour == 12)
+            hour = 0
+        if (ampm == 1 && hour != 12)
+            hour += 12
 
-        Log.d("p4yam", hour.toString() + " " + minutes.toString() + " " + amPmChanger(ampm))
-        createAlarm(hour,minutes)
+        createAlarm(hour, minutes)
     }
 
-    private fun createAlarm(hour:Int,minutes:Int) {
-
+    private fun createAlarm(hour: Int, minutes: Int) {
+        Log.d("p4yam", hour.toString() + " " + minutes.toString())
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val broadcastIntent = Intent(this, AlarmBroadcastReceiver::class.java)
         val id = System.currentTimeMillis().toInt()
-        val calendar = Calendar.getInstance()
-        val day = calendar.get(Calendar.DAY_OF_WEEK)
-        calendar.set(Calendar.DAY_OF_WEEK,day)
-        calendar.set(Calendar.HOUR_OF_DAY,hour)
-        calendar.set(Calendar.MINUTE,minutes)
-        calendar.set(Calendar.SECOND, 0)
-        calendar.set(Calendar.MILLISECOND, 0)
-
-        val startTime = calendar.timeInMillis
+        val calendar: Calendar = Calendar.getInstance().apply {
+            timeInMillis = System.currentTimeMillis()
+            set(Calendar.HOUR_OF_DAY, hour)
+            set(Calendar.MINUTE, minutes)
+        }
         val pIntent = PendingIntent.getBroadcast(this, id, broadcastIntent, 0)
         alarmManager.set(
                 AlarmManager.RTC_WAKEUP,
-                startTime,
+                calendar.timeInMillis,
                 pIntent
         )
         finish()
-    }
-
-    private fun amPmChanger(input:Int): String {
-        return if (input==0)
-            "am"
-        else
-            "pm"
     }
 
 }
